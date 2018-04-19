@@ -1,7 +1,7 @@
 <?php
 
 
-$namespace = 'Stackout\PaymentGateways\Http\Controllers';
+$namespace = 'Stackout\Http\Controllers';
 
 
 /**
@@ -12,7 +12,11 @@ Route::group([
     'prefix' => 'gateway',
 ], function (){
 
+    
+    Route::get('/', 'GatewayController@index')->name('gateway.index');
+    Route::post('/', 'GatewayController@postCheckout')->name('gateway.index');
 
-    Route::get('/tests', '')->name('gateway.test');
+    
+    Route::get('/test', 'GatewayController@test')->name('gateway.test');
 
 });

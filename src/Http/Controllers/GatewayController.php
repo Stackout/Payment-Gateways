@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Stackout\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
-use Stackout\
+use Stackout\PaymentGateways;
 
 class GatewayController extends Controller
 {
@@ -13,8 +12,9 @@ class GatewayController extends Controller
     /**
      * Dump and Test our Gateways to our Payment Processing Platforms
      */
-    public function test(){
+    public function index(){
 
+        return view('sgateway::layouts.main');
 
     }
 
