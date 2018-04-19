@@ -1,4 +1,5 @@
 {
+    "url":"https://github.com/Stackout/Payment-Gateways",
     "name": "stackout/payment-gateways",
     "description": "This package allows the user to connect to multiple payment processing gateways using the same methods, interfaces and contracts.",
     "require": {

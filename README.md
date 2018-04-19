@@ -1,4 +1,4 @@
-# Stackout's Paymetn Gateway Processor
+# Stackout's Payment Gateway Processor
 
 This project is meant to provide ease of access to connect to multiple payment gateways. 
 
@@ -13,10 +13,11 @@ What things you need to install the software and how to install them
 ```
 Laravel
 ```
-To install laravel create a new project
+Navicate to your desired project folder, and create a new laravel project.
 ```
 laravel new MyProject
 ```
+
 
 ### Installing
 
