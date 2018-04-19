@@ -1,6 +1,6 @@
-# Project Title
+# Stackout's Paymetn Gateway Processor
 
-One Paragraph of project description goes here
+This project is meant to provide ease of access to connect to multiple payment gateways. 
 
 ## Getting Started
 
@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-Give examples
+Laravel
 ```
 
 ### Installing
