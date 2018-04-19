@@ -25,8 +25,6 @@ laravel new MyProject
 
 Installing the package is easy, simply require via composer.
 
-Install via the package via composer
-
 ```
 composer require stackout/payment-gateways
 ```
