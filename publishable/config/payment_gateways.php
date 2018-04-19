@@ -12,8 +12,14 @@ return [
      */
     'develpoment' => true,
 
+    /**
+     * Set up the cache system to use REDIS. We can cache the public keys and store them inside a redis server
+     * 'cache' => 'redis'. 
+     * 
+     * Package will work really well with Redis or Memcache
+     */
 
-
+    'cache' => '',
 
     /**
      * These are the config variables used by the payment gateway package.
@@ -29,19 +35,22 @@ return [
     'Stripe' => [
 
         /**
-         * Development Settings.
+         * Stripe's Development Settings.
          */
         'development' => 
         [
             'public' => env('STRIPE_PUBLIC_KEY_TEST', ''),
             'private' => env('STRIPE_PRIVATE_KEY_TEST', '')
         ],
+        /**
+         * Stripe's 
+         */
         'production' => 
         [
-            'public' => env(),
-            'private' => env(),
+            'public' => env('STRIPE_PUBLIC_KEY', ''),
+            'private' => env('STRIPE_PUBLIC_KEY', '')
         ]
-        
+
     ],
 
 
