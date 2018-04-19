@@ -13,6 +13,10 @@ What things you need to install the software and how to install them
 ```
 Laravel
 ```
+To install laravel create a new project
+```
+laravel new MyProject
+```
 
 ### Installing
 
