@@ -42,14 +42,14 @@ class PaymentGatewaysServiceProvider extends ServiceProvider
 
         $publishable = [
             'migrations' => [
-                $basedPath . "/publishable/database/migrations" => database_path('migrations'),
+                $basePath . "/publishable/database/migrations" => database_path('migrations'),
             ],
             'config' =>[
                 $basePath . "/publishable/config/payment_gateways.php" => config_path('payment_gateways.php'),
             ]
         ];
 
-        foreach($publishable as $group => $paths){
+        foreach($publishable as $group => $path){
             $this->publishes($path, $group);
         }
     }

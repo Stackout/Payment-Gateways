@@ -47,6 +47,44 @@ class Gateway extends Contracts\PaymentGatewayContract{
      */
     protected $privteKey;
 
+      /**
+     * Every gateway can potentiall contain a private key to talk to the API. These are not stored here.
+     *
+     * @var string
+     */
+    protected $isDevelopment;
+    
+    
+    /**
+     *  Allow overloading of constructor if we want to set our own private and public keys
+     */
+    public function __construct($privateKey = null, $publicKey = null){
 
+        // Set the isDevelopment Property
+        $this->idDevelopment = \Loader::get('');
+
+        // Check to see if we are loading the keys from 
+
+
+        if($privateKey != null)
+            $this->privateKey = $privateKey;
+        else
+            $this->privateKey = ($privateKey != null) ? $privateKey : \Config::get();
+
+        if($publicKey != null)
+            $this->publicKey = $publicKey;
+
+
+    }
+
+    /**
+     * 
+     * 
+     * @return void
+     */
+    public function __get(string $name){
+
+
+    }
 
 }
