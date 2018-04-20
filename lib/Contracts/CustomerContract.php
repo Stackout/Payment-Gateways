@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Stackout\PaymentGateways\Contracts;
+namespace Stackout\PaymentGateways;
 
 
 interface CustomerContract{
@@ -9,13 +9,14 @@ interface CustomerContract{
     /**
      * All methods pertaining to customer profiles
      */
-    public function createCustomer($data);
+    public function createCustomer();
 
-    public function retrieveCustomer($id);
+    public function retrieveCustomer();
 
-    public function updateCustomer($id, $data);
+    public function saveCustomer();
 
-    public function deleteCustomer($id);
+    public function deleteCustomer();
 
+    public function getAllCustomers(array $data);
 
 }

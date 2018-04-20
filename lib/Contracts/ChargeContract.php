@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Stackout\PaymentGateways\Contracts;
+namespace Stackout\PaymentGateways;
 
 
 interface ChargeContract{
@@ -10,7 +10,7 @@ interface ChargeContract{
     /**
      * All methods pertaining to charges
      */
-    public function createCharge();
+    public function createCharge(array $amount);
 
     public function retrieveCharge();
 

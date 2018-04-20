@@ -10,7 +10,7 @@ return [
      * (i.e.) Stripe has 'test' keys you can use for testing your payments through their test APIs while you develop your
      * front end.
      */
-    'develpoment' => true,
+    'development' => true,
 
     /**
      * Set up the cache system to use REDIS. We can cache the public keys and store them inside a redis server
@@ -20,6 +20,14 @@ return [
      */
 
     'cache' => '',
+
+    /**
+     * Set the default gateway
+     * 
+     * Default gatewy is stripe
+     */
+
+    'default' => 'stripe',
 
     /**
      * These are the config variables used by the payment gateway package.
@@ -32,7 +40,7 @@ return [
      * Google Checkout
      */
 
-    'Stripe' => [
+    'stripe' => [
 
         /**
          * Stripe's Development Settings.

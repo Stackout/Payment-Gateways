@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGatewayTable extends Migration
+class UsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateGatewayTable extends Migration
      */
     public function up()
     {
-        Schema::create('gateways', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('gateway');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('stripe_id');
+            $table->string('paypal_id');
+            $table->string('authnet_id');
         });
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Stackout\PaymentGateways\Contracts;
+namespace Stackout\PaymentGateways;
 
 
 interface SubscriptionContract{
@@ -10,13 +10,13 @@ interface SubscriptionContract{
     /**
      * All methods pertaining to recurring billing or subscriptions
      */
-    public function createSubscription($data);
+    public function createSubscription();
 
-    public function retrieveSubscription($id);
+    public function retrieveSubscription();
 
-    public function updateSubscription($id, $data);
+    public function updateSubscription();
 
-    public function deleteSubscription($id);
+    public function deleteSubscription();
 
 
 }

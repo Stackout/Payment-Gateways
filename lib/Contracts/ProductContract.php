@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Stackout\PaymentGateways\Contracts;
+namespace Stackout\PaymentGateways;
 
 
 interface ProductContract{
