@@ -27,7 +27,6 @@ class PaymentGatewaysServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerPublishables();
-
     }
 
     /**

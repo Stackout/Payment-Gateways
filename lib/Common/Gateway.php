@@ -31,7 +31,17 @@ namespace Stackout\PaymentGateways;
  * This is a "Docblock Comment," also known as a "docblock."  The class'
  * docblock, below, contains a complete description of how to write these.
  */
-class Gateway extends Contracts\PaymentGatewayContract{
+class Gateway{
+
+    /**
+     * Constants
+     *
+     * @var constant STRIPE = 0
+     * @var constant AUTHORIZENET = 1 
+     */
+    public const STRIPE = 0;
+    public const AUTHORIZENET = 1;
+
 
     /**
      * Every gateway can potentially contain public and private keys. These are not stored here.
@@ -54,37 +64,79 @@ class Gateway extends Contracts\PaymentGatewayContract{
      */
     protected $isDevelopment;
     
+    /**
+     * This service tells us if we are in production or develpoment
+     *
+     * @var string
+     */
+    protected $service;
     
+     /**
+     * This service tells us if we are in production or develpoment
+     *
+     * @var array
+     */
+    protected $attributes = array();
+    
+
     /**
      *  Allow overloading of constructor if we want to set our own private and public keys
      */
-    public function __construct($privateKey = null, $publicKey = null){
+    public function __construct($attributes = [], $privateKey = null, $publicKey = null){
 
-        // Set the isDevelopment Property
-        $this->idDevelopment = \Loader::get('');
+        // Check if we are in develpoment or production
+        $this->isDevlopment = \Config::get('payment_gateways.development');
 
-        // Check to see if we are loading the keys from 
-
+        // Set which service to provide
+        $this->service = ($this->isDevelopment) ? 'development' : 'production';
 
         if($privateKey != null)
             $this->privateKey = $privateKey;
-        else
-            $this->privateKey = ($privateKey != null) ? $privateKey : \Config::get();
-
+        
         if($publicKey != null)
             $this->publicKey = $publicKey;
 
-
+        // Define Attributes
+        $this->attributes = $attributes;
     }
 
     /**
-     * 
+     * Magic Getter Method
+     * @return attribute
+     */
+    public function __get($key){
+        if (!array_key_exists($key, $this->attributes)) 
+            throw new Exception ("Property {$key} is not defined.");
+
+        return $this->attributes[$key];
+    }
+
+    /**
+     * Magic Setter Method
+     * @return void
+     */
+    public function __set($key, $value){$this->attributes[$key] = $value;}
+
+    /**
+     * @return attribute
+     */
+    public function getAttribute($key){
+        return $this->attributes[$key];
+    }
+
+    /**
+     * Set all Attributes
+     * @var array attributes 
      * 
      * @return void
      */
-    public function __get(string $name){
+    public function setAttributes($attributes = []){
 
+        foreach($attributes as $key => $value)
+            $this->attributes[$key] = $value;
+        
 
     }
+
 
 }

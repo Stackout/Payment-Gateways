@@ -4,7 +4,8 @@ namespace Stackout\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-use Stackout\PaymentGateways;
+use Stackout\PaymentGateways\Gateway;
+use Stackout\PaymentGateways\GatewayProcessor;
 
 class GatewayController extends Controller
 {
@@ -14,7 +15,12 @@ class GatewayController extends Controller
      */
     public function index(){
 
-        return view('sgateway::layouts.main');
+        $gatewayProcessor = (new GatewayProcessor(Gateway::STRIPE))->getGateway();
+        $gatewayProcessor = (new GatewayProcessor('stripe'))->getGateway();
+
+
+        
+        //return view('sgateway::layouts.main');
 
     }
 
