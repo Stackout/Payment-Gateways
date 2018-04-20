@@ -65,7 +65,18 @@ class User extends Model
 
 ?> 
 ```
-To charge the user
+To charge the user after you extended the user model. You can now declare anywhere to charge the customer. 
+```
+use App\User;
+
+class CheckoutController extends Controller{
+
+    public function postCheckout(Request $request){
+        $user = User::find(1);
+        $user->charge($amount, $request); 
+    }
+
+}
 ```
 
 ## Built With
