@@ -13,5 +13,11 @@
             "email": "admin@heimech.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Stackout\\PaymentGateways\\": "lib/common",
+            "Stackout\\": "lib/common"
+        }
+    },
     "minimum-stability": "dev"
 }
