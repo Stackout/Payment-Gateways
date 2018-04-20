@@ -24,14 +24,14 @@ abstract class GatewayProcessor{
         
     }
 
-    public final static function get(Request $request = null, int $gateway = null){
+    public final static function get(Request $request = null, array $attributes = [], int $gateway = null){
 
         if($gateway == null)
             $gateway = Gateway::default();
 
         switch($gateway){
             case Gateway::STRIPE:
-                return self::stripe($request);
+                return self::stripe($request, $attributes);
             break;
 
             case Gateway::PAYPAL:
@@ -45,8 +45,8 @@ abstract class GatewayProcessor{
 
     }
 
-    public final static function stripe(Request $request = null){
-        return new StripePaymentGateway($request);
+    public final static function stripe(Request $request = null, array $attributes = []){
+        return new StripePaymentGateway($request, $attributes);
     }
 
 

@@ -163,11 +163,14 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         // Re calculate amount based on Stripe's correct amount;
         $amount = ($this->amount * 100);
 
-        $this->charge = \Stripe\Charge::create([
+        $data = [
             'amount'    => $amount,
             'currency'  => $this->getAttribute('currency'),
-            'customer'  => $this->customer->stripe_id
-        ]);
+            'customer'  => $this->customer->stripe_id,
+        ];
+
+
+        $this->charge = \Stripe\Charge::create($data);
         
         return $this->charge;
 
@@ -193,11 +196,15 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         // Add the new credit card to the customer.
         $this->createCard();
 
+        // Interrupt Charge
+        if($this->interruptible == true && method_exists($this->customer, 'interruptCharge'))
+        {
+            $this->customer->interruptCharge($this->request, $this->stripeCustomer);
+        }
+
         // Create our stripe charge
         $this->createCharge();
 
-        // Capture the charge we just created
-        $this->captureCharge();
 
     }
 
@@ -266,5 +273,10 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
 
     }
 
+    public function interruptCharge(Request $request){
+
+        throw new \Exception('Interrupt Charge Method not Implemented');
+
+    }
 
 }

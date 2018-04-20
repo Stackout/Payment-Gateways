@@ -30,6 +30,18 @@ return [
     'default' => 'stripe',
 
     /**
+     * Allow chargeable interruptions
+     * 
+     * This flag allows us to do some logic before we charge the card. Setting this to false disables interruptions.
+     * 
+     * This allows is to either immediatly capture a charge or not. If we immeditly capture a charge, you can do some 
+     * logic before capturing the payment.
+     * 
+     */
+
+    'interruptible' => true,
+
+    /**
      * These are the config variables used by the payment gateway package.
      * 
      * ------------------------------------------------------------------

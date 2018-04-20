@@ -35,26 +35,11 @@ Here is basic usage of the package. You can add a 'charge' method to your user
 ```
 <?php
 
-use Stackout\PaymentGateways\Gateway;
-use Stackout\PaymentGateways\GatewayProcessor;
-use Stackout\PaymentGateways\Traits;
+use Stackout\PaymentGateways\Traits\IsChargeable;
 
 class User extends Model
 {
     use IsChargeable;
-
-    public function charge(){
-
-        $attributes = 
-            [
-                'name' => $user->name,
-                'email' => $this->email
-            ];
-
-        
-
-    }
-
 
 }
 

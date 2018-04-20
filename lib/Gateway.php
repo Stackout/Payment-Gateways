@@ -154,6 +154,14 @@ class Gateway{
      */
     public $default_card;
 
+     /**
+     * Default representation of the credit card
+     *
+     * @var string Default Credit Card
+     */
+    public $interruptible;
+
+
     /**
      *  Allow overloading of constructor if we want to set our own private and public keys
      */
@@ -167,6 +175,9 @@ class Gateway{
 
         // Set which service to provide
         $this->service = ($this->isDevelopment) ? 'development' : 'production';
+
+        // Set weather or not this is interruptable
+        $this->interruptible = \Config::get('payment_gateways.interruptible');
 
         // Set the config path attribute
         $attributes['config'] = 'payment_gateways.' . $this->gatewayName . '.' . $this->service;

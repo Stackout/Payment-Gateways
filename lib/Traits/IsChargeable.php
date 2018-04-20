@@ -3,14 +3,13 @@
 
 namespace Stackout\PaymentGateways\Traits;
 use Stackout\PaymentGateways\GatewayProcessor;
+use Stackout\PaymentGateways\Gateway;
 
 
 
 trait IsChargeable{
 
     public function charge($request, $amount){
-
-        $payment_attributes = ['statement_descriptor' => 'PROYARD.COM ORDER'];
 
         $gateway = GatewayProcessor::get($request);
         $gateway->customer = $this;
@@ -19,8 +18,5 @@ trait IsChargeable{
         $gateway->charge();
 
     }
-
-
-    
 
 }
