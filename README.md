@@ -73,6 +73,8 @@ class CheckoutController extends Controller{
 
     public function postCheckout(Request $request){
 
+        $amount = 5000; // Charge $50 ($50.00)
+
         $user = User::find(1);
         $user->charge($request, $amount); 
 
