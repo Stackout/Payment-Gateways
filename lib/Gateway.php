@@ -139,6 +139,20 @@ class Gateway{
      * @var Model
      */
     public $amount;
+     
+     /**
+     * This is a 'model' or 'object' we can access the attributes of our defined payment gateway.
+     *
+     * @var ChargeObject
+     */
+    public $charge;
+
+     /**
+     * Default representation of the credit card
+     *
+     * @var string Default Credit Card
+     */
+    public $default_card;
 
     /**
      *  Allow overloading of constructor if we want to set our own private and public keys
@@ -214,7 +228,7 @@ class Gateway{
      * 
      * @return void
      */
-    public function setAttributes($attributes = []){
+    public function setAttributes(array $attributes = []){
 
         foreach($attributes as $key => $value)
             $this->attributes[$key] = $value;
@@ -222,16 +236,14 @@ class Gateway{
 
     }
 
+    public function setAttribute($key, $value){$this->attributes[$key] = $value;}
+
     public function getPublicKey(){
-
         return $this->publicKey;
-
     }
 
     public function getPrivateKey(){
-
         return $this->privateKey;
-
     }
 
     public function setCurrency(string $currency){$this->currency = $currency;}
@@ -253,6 +265,14 @@ class Gateway{
         $this->customer = $customer;
     }
 
+
+    public function checkRequest(){
+        
+        if($this->request == null)
+            throw new \Exception('Invalid request.');
+
+
+    }
     
 
 }

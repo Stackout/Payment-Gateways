@@ -20,37 +20,25 @@ class GatewayController extends Controller
 
     }
 
-
     /**
      * Dump and Test our Gateways to our Payment Processing Platforms
      */
-    public function index(Request $request){
+    public function index(){
+
+       
 
 
-        $gateway = GatewayProcessor::get($request);
-        
-        $user = User::find(1);
-        $gateway->customer = $user;
-        $gateway->amount = 50.32;
-        
         // Get our default gateway processor
         return view('sgateway::stripe.checkout');
 
     }
 
-    public function postCheckout(Request $request){
-        
-        
-        $gateway = GatewayProcessor::get($request);
+    public function postCheckout(Request $request){        
         
         $user = User::find(1);
-        $gateway->customer = $user;
-        $gateway->amount = 50.32;
+        $user->charge($request, 5000);
 
-        // Created a customer if it doesn't already exist.
-        // If customer does exist, retrieve it
-        $user->charge();
-
+        
 
     }
 
