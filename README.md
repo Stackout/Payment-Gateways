@@ -72,8 +72,10 @@ use App\User;
 class CheckoutController extends Controller{
 
     public function postCheckout(Request $request){
+
         $user = User::find(1);
-        $user->charge($amount, $request); 
+        $user->charge($request, $amount); 
+
     }
 
 }
