@@ -52,8 +52,8 @@ If you use NoSQL migrating the files are not required. If there are any properti
 ### Usage
 Here is basic usage of the package. You can add a 'charge' method to your user.
 
-```
-<?php
+```php
+
 
 use Stackout\PaymentGateways\Traits\IsChargeable;
 
@@ -63,10 +63,10 @@ class User extends Model
 
 }
 
-?> 
+
 ```
 To charge the user after you extended the user model. You can now declare anywhere to charge the customer. 
-```
+```php
 use App\User;
 
 class CheckoutController extends Controller{
