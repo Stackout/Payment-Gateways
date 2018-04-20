@@ -12,10 +12,15 @@ trait IsChargeable{
     public function charge($request, $amount){
 
         $gateway = GatewayProcessor::get($request);
+        
         $gateway->customer = $this;
         $gateway->amount = $amount;
 
-        $gateway->charge();
+        // Get Charge object
+        $charge = $gateway->charge();
+
+        // Return Charge Object
+        return $charge;
 
     }
 

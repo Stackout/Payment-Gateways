@@ -205,10 +205,13 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         // Create our stripe charge
         $this->createCharge();
 
+        return $this->charge();
 
     }
 
     public function retrieveCharge(){
+
+
 
     }
 
