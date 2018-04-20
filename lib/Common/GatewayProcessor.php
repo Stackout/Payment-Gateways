@@ -14,8 +14,6 @@ class GatewayProcessor extends Gateway{
 
     public function __constructor($gateway, array $attributes = [], string $privateKey = null, string $publicKey = null){
 
-
-        
         parent::__constructor($attributes, $privateKey, $publicKey);
         
         $this->gateway = $gateway;

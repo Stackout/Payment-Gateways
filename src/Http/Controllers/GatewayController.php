@@ -15,12 +15,9 @@ class GatewayController extends Controller
      */
     public function index(){
 
-        $gatewayProcessor = (new GatewayProcessor(Gateway::STRIPE))->getGateway();
-        $gatewayProcessor = (new GatewayProcessor('stripe'))->getGateway();
-
-        echo"test2";
         
-        //return view('sgateway::layouts.main');
+        $gatewayProcessor = (new GatewayProcessor(Gateway::STRIPE))->getGateway();        
+        return view('sgateway::stripe.checkout');
 
     }
 

@@ -14,7 +14,7 @@ Route::group([
 
     
     Route::get('/', 'GatewayController@index')->name('gateway.index');
-    Route::post('/', 'GatewayController@postCheckout')->name('gateway.index');
+    Route::post('/', 'GatewayController@postCheckout')->name('checkout.post');
 
     
     Route::get('/test', 'GatewayController@test')->name('gateway.test');

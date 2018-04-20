@@ -34,14 +34,29 @@ namespace Stackout\PaymentGateways;
 class Gateway{
 
     /**
-     * Constants
+     * Stripe Constants
      *
-     * @var constant STRIPE = 0
-     * @var constant AUTHORIZENET = 1 
+     * @var constant[int] STRIPE = 0
+     * @var constant[string] STRIPE_NAME = stripe_name
      */
     public const STRIPE = 0;
+    public const STRIPE_NAME = 'stripe';
+    
+    /**
+     * AUTHORIZE.NET Constants
+     * @var constant[int] AUTHORIZENET = 1 
+     * @var constant[string] AUTHORIZENET_NAME = authorize.net
+     */
     public const AUTHORIZENET = 1;
+    public const AUTHORIZENET_NAME = 'authorize.net';
 
+    /**
+     * PAYPAL PRO Constants
+     * @var constant[int] PAYPAL = 2 
+     * @var constant[string] PAYPAL_NAME = paypal
+     */
+    public const PAYPAL = 2;
+    public const PAYPAL_NAME = 'paypal';
 
     /**
      * Every gateway can potentially contain public and private keys. These are not stored here.
@@ -70,7 +85,21 @@ class Gateway{
      * @var string
      */
     protected $service;
+     
+    /**
+     * This service tells us waht cache driver we're using
+     *
+     * @var string
+     */
+    protected $cache;
     
+    /**
+     * This service tells us waht cache driver we're using
+     *
+     * @var string
+     */
+    protected $gatewayName;
+     
      /**
      * This service tells us if we are in production or develpoment
      *
@@ -85,7 +114,10 @@ class Gateway{
     public function __construct($attributes = [], $privateKey = null, $publicKey = null){
 
         // Check if we are in develpoment or production
-        $this->isDevlopment = \Config::get('payment_gateways.development');
+        $this->isDevlopment = Config::get('payment_gateways.development');
+
+        // Load cache setting from config
+        $this->cache = Config::get('payment_gateways.cache');
 
         // Set which service to provide
         $this->service = ($this->isDevelopment) ? 'development' : 'production';
@@ -138,5 +170,10 @@ class Gateway{
 
     }
 
+    public static function getPublicKey(){
+
+
+
+    }
 
 }

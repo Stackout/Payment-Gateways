@@ -29,6 +29,38 @@ Installing the package is easy, simply require via composer.
 composer require stackout/payment-gateways
 ```
 
+### Usage
+Here is basic usage of the package. You can add a 'charge' method to your user
+
+```
+<?php
+
+use Stackout\PaymentGateways\Gateway;
+use Stackout\PaymentGateways\GatewayProcessor;
+use Stackout\PaymentGateways\Traits;
+
+class User extends Model
+{
+    use IsChargeable;
+
+    public function charge(){
+
+        $attributes = 
+            [
+                'name' => $user->name,
+                'email' => $this->email
+            ];
+
+        
+
+    }
+
+
+}
+
+?> 
+```
+
 ## Built With
 
 * [Laravel](https://laravel.com/docs/5.6/) - PHP Web Framework
