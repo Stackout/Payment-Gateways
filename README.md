@@ -28,9 +28,29 @@ Installing the package is easy, simply require via composer.
 ```
 composer require stackout/payment-gateways
 ```
+After installing, if you want to use the example checkout views to test your connections, place this line inside your config/app.php
+
+Please note, this step is not required. The service provider was used for testing.
+```
+providers = [
+
+    // app providers
+
+        Stackout\PaymentGateways\PaymentGatewaysServiceProvider::class,
+
+    // ...
+
+]
+```
+
+Next, after requiring the package, run the artisan command to require the config and migration files. The migration file simply adds a few columns to your user table.
+```
+php artisan vendor:publish
+```
+If you use NoSQL migrating the files are not required. If there are any properties and data inside of a collection, the data will be appended and used automatically. 
 
 ### Usage
-Here is basic usage of the package. You can add a 'charge' method to your user
+Here is basic usage of the package. You can add a 'charge' method to your user.
 
 ```
 <?php
@@ -44,6 +64,8 @@ class User extends Model
 }
 
 ?> 
+```
+To charge the user
 ```
 
 ## Built With
