@@ -18,7 +18,7 @@ class GatewayController extends Controller
         $gatewayProcessor = (new GatewayProcessor(Gateway::STRIPE))->getGateway();
         $gatewayProcessor = (new GatewayProcessor('stripe'))->getGateway();
 
-
+        echo"test";
         
         //return view('sgateway::layouts.main');
 
