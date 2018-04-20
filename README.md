@@ -73,10 +73,17 @@ class CheckoutController extends Controller{
 
     public function postCheckout(Request $request){
 
+        // Request MUST include 'stripeToken' for the Stripe Gateway to charge the customer
         $amount = 5000; // Charge $50 ($50.00)
 
+        // Charge the Customer
         $user = User::find(1);
         $user->charge($request, $amount); 
+
+        // Get the Customer's Credit Cards
+        $user->creditcards(); // NOT IMPLEMENTED YET
+
+
 
     }
 
