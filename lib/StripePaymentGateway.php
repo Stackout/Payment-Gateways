@@ -79,7 +79,7 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
             $this->stripeCustomer = \Stripe\Customer::create($data);
 
             // Save the stripe id to our customer's details.
-            $this->customer->stripe_id = $customer->id;
+            $this->customer->stripe_id = $this->stripeCustomer->id;
             $this->customer->save();
 
             return $this->stripeCustomer;
