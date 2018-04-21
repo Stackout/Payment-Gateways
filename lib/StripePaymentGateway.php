@@ -64,8 +64,6 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
             // Build the customer's data array
             if($this->request != null){
 
-                if($this->request->has('stripeToken'))
-                   $data['source'] = $this->attributes['stripeToken']; 
 
                 if($this->request->has('email'))
                     $data['email'] = $this->request->input('email');
