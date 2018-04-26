@@ -9,19 +9,38 @@ use Stackout\PaymentGateways\Gateway;
 
 trait IsChargeable{
 
+    /**
+     * @var Gateway
+     */
+    protected $paymentGateway;
+
+    /**
+     * @var Gateway
+     */
+    protected $gatewayResponse;
+
+    /**
+     * Charge this user
+     * 
+     * @var Request
+     * @var int
+     * 
+     * @return Gateway
+     */
     public function charge($request, $amount){
 
-        $gateway = GatewayProcessor::get($request);
+        $tihs->paymentGateway = GatewayProcessor::get($request);
         
         $gateway->customer = $this;
         $gateway->amount = $amount;
 
         // Get Charge object
-        $charge = $gateway->charge();
+        $this->gatewayResponse = $gateway->charge();
 
         // Return Charge Object
-        return $charge;
+        return $this->gatewayResponse;
 
     }
+
 
 }
