@@ -31,7 +31,7 @@ composer require stackout/payment-gateways
 After installing, if you want to use the example checkout views to test your connections, place this line inside your config/app.php
 
 Please note, this step is not required. The service provider was used for testing.
-```
+```php
 providers = [
 
     // app providers
@@ -54,7 +54,6 @@ Here is basic usage of the package. You can add a 'charge' method to your user.
 
 ```php
 
-
 use Stackout\PaymentGateways\Traits\IsChargeable;
 
 class User extends Model
@@ -65,7 +64,7 @@ class User extends Model
 
 
 ```
-To charge the user after you extended the user model. You can now declare anywhere to charge the customer. 
+To charge the user after you've added the IsChargeable trait to the user or customer model 
 ```php
 use App\User;
 
@@ -73,17 +72,50 @@ class CheckoutController extends Controller{
 
     public function postCheckout(Request $request){
 
-        // Request MUST include 'stripeToken' for the Stripe Gateway to charge the customer
-        $amount = 5000; // Charge $50 ($50.00)
-
         // Charge the Customer
         $user = User::find(1);
-        $user->charge($request, $amount); 
 
-        // Get the Customer's Credit Cards
-        $user->creditcards(); // NOT IMPLEMENTED YET
+        /**
+         * Charge the Customer $50.00
+         */
+        $response = $user->charge(5000); 
 
+        /**
+         * If there was a problem or an issue that arose when we tried to charge the card
+         * the valid method let's us know if the charge worked.
+         * 
+         * Some of the issues that can arise after chargine the card are as follows:
+         * - Too many API calls to server
+         * - Card was Declined
+         * - ect...
+         */
+        if(!$response->valid()){
+            return redirect()->back()->withErrors($response->errors);
+        }
 
+        // Get the Customer's Credit Card Details from the response
+        $creditcard = $response->creditcard();
+
+        /**
+         * Accessing the Credit Card Data
+         * ------------------------------------------------
+         * We can access the credit card data from the response we got
+         * when we charged the customer.
+         * 
+         * Depending on application requirements, it is not reccomended to store any creditcard data
+         * other than the last 4.
+         */
+        $creditcard->last4;
+        $creditcard->brand;
+        $creditcard->exp_year;
+        $creditcard->exp_month;
+
+        /**
+         * Retrieve the Billing Address
+         * 
+         * @return Array
+         */
+        $billingAddress = $creditcard->getAddress();
 
     }
 
