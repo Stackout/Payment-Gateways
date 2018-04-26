@@ -167,6 +167,14 @@ class Gateway{
      * @var string Default Credit Card
      */
     public $errors;
+
+     /**
+     * Declare success message
+     *
+     * @var string Default Credit Card
+     */
+    public $success;
+
     /**
     * Declare error
     *
@@ -333,7 +341,7 @@ class Gateway{
      * Set response error
      * @return void
      */
-    public function seterror(\Exception $e){
+    public function setError(\Exception $e){
 
         $this->errors[] = $e->getMessage();
         $this->errorHttpStatus = $e->getHttpStatus();

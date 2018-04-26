@@ -33,19 +33,18 @@ class GatewayController extends Controller
 
     public function postCheckout(Request $request){        
         
+        // Find the User to Charge
         $user = User::find(1);
 
+        // Charge the User
+        $response = $user->charge($request, 5000);       
 
-        $charge = $user->charge($request, 5000);
-        
-        // 4000000000000002 - DECLINE CARD
-        if(!$charge->valid()){
-
-            //dd($charge->error);
+        // Check weather or not the card was declined or not
+        if(!$response->valid())
             return redirect()->back()->withErrors($charge->errors);
-
-        }
-
+        
+        // Redirect back with a success message. (Or Continue forward )
+        return redirect()->back()->with('success', $response->success);
 
     }
 
