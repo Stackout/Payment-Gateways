@@ -6,6 +6,8 @@
 
 {{-- Payment Form Section --}}
 @section('payment-form')
+
+
 <div class="form-row">
     <label for="card-element">
         Credit or debit card

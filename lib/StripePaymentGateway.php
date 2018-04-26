@@ -188,31 +188,29 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
 
     public function charge(){
 
-        // create and/or retrieve our customer if he exists or not.
-        $this->createCustomer();
-
-        // Add the new credit card to the customer.
-        $this->createCard();
-
-        // Interrupt Charge
-        if($this->interruptible == true && method_exists($this->customer, 'interruptCharge'))
-        {
-            $this->customer->interruptCharge($this->request, $this->stripeCustomer);
-        }
-
         // Tru to charge customer
         try{
+            // create and/or retrieve our customer if he exists or not.
+            $this->createCustomer();
+
+            // Add the new credit card to the customer.
+            $this->createCard();
+
+            // Interrupt Charge
+            if($this->interruptible == true && method_exists($this->customer, 'interruptCharge'))
+            {
+                $this->customer->interruptCharge($this->request, $this->stripeCustomer);
+            }
 
             // Create our stripe charge
             $this->createCharge();  
 
-            return $this;
-
         } catch(\Stripe\Error\Card $e) {
+
             // Since it's a decline, \Stripe\Error\Card will be caught
             $this->errors[] = $e->getMessage();
-
-        } catch (\Stripe\Error\RateLimit  $e) {
+            
+        } catch (\Stripe\Error\RateLimit $e) {
 
             // Too many requests made to the API too quickly
             $this->errors[] = $e->getMessage();
@@ -238,12 +236,11 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
             // yourself an email
             $this->errors[] = $e->getMessage();
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             // Something else happened, completely unrelated to Stripe
             $this->errors[] = $e->getMessage();
 
         }
-
 
         return $this;
 

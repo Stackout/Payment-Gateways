@@ -1,6 +1,9 @@
 @extends('sgateway::layouts.main')
 
 @section('content')
+
+@include('sgateway::inc.messages')
+
 <form method="POST" action="{{ route('checkout.post') }}" id="payment-form">
         @csrf
         <div class="row">

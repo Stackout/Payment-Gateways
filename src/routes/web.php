@@ -10,6 +10,7 @@ $namespace = 'Stackout\Http\Controllers';
 Route::group([
     'namespace' => $namespace,
     'prefix' => 'gateway',
+    'middleware' =>'web',
 ], function (){
 
     

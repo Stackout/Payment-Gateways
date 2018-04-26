@@ -25,8 +25,6 @@ class GatewayController extends Controller
      */
     public function index(){
 
-       
-
 
         // Get our default gateway processor
         return view('sgateway::stripe.checkout');
@@ -40,14 +38,14 @@ class GatewayController extends Controller
 
         $charge = $user->charge($request, 5000);
         
+        // 4000000000000002 - DECLINE CARD
         if(!$charge->valid()){
-            foreach($charge->errors as $error){
-                echo $error . '<br>';
-            }
+
+            //dd($charge->error);
+            return redirect()->back()->withErrors($charge->errors);
+
         }
-        
-        // 4000000000000002
-        dd($charge->errors);
+
 
     }
 

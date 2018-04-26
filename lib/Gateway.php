@@ -162,20 +162,20 @@ class Gateway{
     public $interruptible;
 
      /**
-     * Declare errors
+     * Declare error
      *
      * @var string Default Credit Card
      */
     public $errors;
     /**
-    * Declare errors
+    * Declare error
     *
     * @var string Default Credit Card
     */
     public $errorResponseType;
 
     /**
-    * Declare errors
+    * Declare error
     *
     * @var string Default Credit Card
     */
@@ -305,7 +305,7 @@ class Gateway{
     }
 
     /**
-     * Validation and Errors
+     * Validation and errors
      * 
      * @return array
      */
@@ -330,10 +330,10 @@ class Gateway{
     }
 
     /**
-     * Set response errors
+     * Set response error
      * @return void
      */
-    public function setErrors(\Exception $e){
+    public function seterror(\Exception $e){
 
         $this->errors[] = $e->getMessage();
         $this->errorHttpStatus = $e->getHttpStatus();
