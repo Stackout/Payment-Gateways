@@ -30,17 +30,17 @@ trait IsChargeable{
     public function charge($amount, $request = null){
 
         // If gatewy isn't initlized, then we initilize it.
-        if($this->paymentGateway == null) $this->initPaymentGateway($request);
-        else $gateway = $this->paymentGateway;
+        if($this->paymentGateway == null)
+            $this->initPaymentGateway($request);
 
         // Set the customer to 'this' being the user or customer
-        $gateway->customer = $this;
+        $this->paymentGateway->customer = $this;
 
         // Set the amount to charge the customer
-        $gateway->amount = $amount;
+        $this->paymentGateway->amount = $amount;
 
-        // Get Charge object
-        $this->gatewayResponse = $gateway->charge();
+        // Charge the Customer
+        $this->gatewayResponse =  $this->paymentGateway->charge();
 
         // Return Charge Object
         return $this->gatewayResponse;
@@ -57,10 +57,10 @@ trait IsChargeable{
     public function creditcard($request = null){
 
         // If gatewy isn't initlized, then we initilize it.
-        if($this->paymentGateway == null) $this->initPaymentGateway($request);
-        else $gateway = $this->paymentGateway;
+        if($this->paymentGateway == null)
+            $this->initPaymentGateway($request);
 
-        $this->gatewayResponse = $gateway->creditcard();
+        $this->gatewayResponse = $this->paymentGateway->creditcard();
 
         return $this->gatewayResponse;
 

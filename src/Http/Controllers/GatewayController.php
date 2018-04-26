@@ -37,7 +37,7 @@ class GatewayController extends Controller
         $user = User::find(1);
 
         // Charge the User
-        $response = $user->charge($request, 5000);       
+        $response = $user->charge(5000);       
 
         // Check weather or not the card was declined or not
         if(!$response->valid())
@@ -46,6 +46,7 @@ class GatewayController extends Controller
         $creditcard = $response->creditcard();
 
         dd($creditcard);
+
         // Redirect back with a success message. (Or Continue forward )
         //return redirect()->back()->with('success', $response->success);
 
