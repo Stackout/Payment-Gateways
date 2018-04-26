@@ -190,6 +190,28 @@ class Gateway{
     public $errorHttpStatus;
 
     /**
+    * Creditcard Object
+    *
+    * @var string Default Credit Card Object
+    */
+    public $creditcard;
+
+    /**
+    * Bankaccount Object
+    *
+    * @var string
+    */
+    public $bankaccount;
+
+    /**
+    * Source Object
+    *
+    * @var string Source Object
+    */
+    public $source;
+
+
+    /**
      *  Allow overloading of constructor if we want to set our own private and public keys
      */
     public function __construct(Request $request = null, int $gateway = null, array $attributes = [], $privateKey = null, $publicKey = null, $currency = Currency::__default){
@@ -348,6 +370,14 @@ class Gateway{
         $this->errorResponseType = $e->getType();
 
     }
+
+
+    public function getCharge(){
+
+        return $this->charge;
+
+    }
+
 
 
 }

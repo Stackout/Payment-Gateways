@@ -3,6 +3,9 @@
 
 namespace Stackout\PaymentGateways;
 
+use Stackout\Objects\Creditcard;
+use Stackout\Objects\Bankaccount;
+
 use \Config;
 use \Cache;
 use Illuminate\Http\Request;
@@ -167,9 +170,11 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
             'customer'  => $this->customer->stripe_id,
         ];
 
-
         $this->charge = \Stripe\Charge::create($data);
-        
+
+        // Make Creditcard or Bankaccount Object from Source
+        $this->source = $this->charge['source'];
+
         return $this->charge;
 
     }
@@ -188,7 +193,7 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
 
     public function charge(){
 
-        // Tru to charge customer
+        // Try to charge customer
         try{
             // create and/or retrieve our customer if he exists or not.
             $this->createCustomer();
@@ -247,6 +252,37 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
     }
 
 
+    public function creditcard(){
+
+        if($this->creditcard != null)
+            return $this->creditcard;
+
+        // If default card isn't set, set it
+        if($this->default_card == null)
+            $this->retrieveCard();
+
+        $default_card = $this->default_card;
+
+        $creditcard = new Creditcard;
+        $creditcard->last4 = $default_card->last4;
+        $creditcard->exp_year = $default_card->exp_year;
+        $creditcard->exp_month = $default_card->exp_month;
+
+        $creditcard->metadata = $default_card->metadata;
+
+        $creditcard->address['line1'] = $default_card->line1;
+        $creditcard->address['line2'] = $default_card->line2;
+        $creditcard->address['state'] = $default_card->state;
+        $creditcard->address['city'] = $default_card->city;
+        $creditcard->address['zip'] = $default_card->zip;
+        
+        $this->creditcard = $creditcard;
+
+        return $creditcard;
+
+    }
+
+
     public function retrieveCharge(){
 
 
@@ -289,7 +325,6 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         if($this->default_card != null)
             return $this->default_card;
 
-
         if($this->retrieveCustomer() === false)
             throw new \Exception('Customer does not exist.');
 
@@ -298,7 +333,7 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
 
         $this->default_card = $this->stripeCustomer->sources->retrieve($this->customer->stripe_card_id);
 
-        return $this->stripeCustomer->sources->retrieve();
+        return $this->default_card;
 
     }
 
