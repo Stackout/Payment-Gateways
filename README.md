@@ -82,12 +82,14 @@ class CheckoutController extends Controller{
 
         /**
          * If there was a problem or an issue that arose when we tried to charge the card
-         * the valid method let's us know if the charge worked.
+         * the 'valid()' method let's us know if the charge worked.
          * 
          * Some of the issues that can arise after chargine the card are as follows:
          * - Too many API calls to server
          * - Card was Declined
          * - ect...
+         * 
+         * If the response here is not valid we can redirect back with errors.
          */
         if(!$response->valid()){
             return redirect()->back()->withErrors($response->errors);
@@ -104,6 +106,11 @@ class CheckoutController extends Controller{
          * 
          * Depending on application requirements, it is not reccomended to store any creditcard data
          * other than the last 4.
+         * 
+         * @var String last4
+         * @var String brand (i.e. Visa, Master Card ect..)
+         * @var String exp_year
+         * @var String exp_month
          */
         $creditcard->last4;
         $creditcard->brand;
@@ -121,6 +128,25 @@ class CheckoutController extends Controller{
 
 }
 ```
+
+## Interrupting Charges
+Before charging the customer, we can interrupt the charge and perform some business logic by overriding the interruptCharge() method in the User Model.
+
+```php
+class User extends Model{
+
+    use IsChargeable;
+
+    public function interruptCharge(){
+
+        // Perform some business logic before charging the customer.
+
+    }
+
+
+}
+```
+Some more examples of interrupting the charge of customer could be creating software installation keys, or createing the customer's download link before charging them.
 
 ## Built With
 
