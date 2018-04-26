@@ -272,6 +272,7 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         $creditcard->funding = $default_card->funding;
         $creditcard->fingerprint = $default_card->fingerprint;
         $creditcard->owner = $this->stripeCustomer->id;
+        $creditcard->brand = $default_card->brand;
 
         $creditcard->metadata = $default_card->metadata->__toArray(true);
 
