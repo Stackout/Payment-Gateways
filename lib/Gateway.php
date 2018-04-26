@@ -322,10 +322,10 @@ class Gateway{
      */
     public function valid(){
 
-        if(count($this->errors) > 0)
-            return false;
+        if(empty($this->errors))
+            return true;
         
-        return true;
+        return false;
 
     }
 
