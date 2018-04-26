@@ -11,7 +11,9 @@ class Creditcard extends Source {
 
     protected $exp_year;
 
-    public function __construct($last4 = null, $exp_month = null, $exp_year = null){
+    protected $brand;
+
+    public function __construct($last4 = null, $exp_month = null, $exp_year = null, $brand = null){
 
         $this->object = Objects::CREDITCARD; 
 
@@ -23,6 +25,9 @@ class Creditcard extends Source {
 
         if($exp_year != null)
             $this->exp_year = $exp_year;
+
+        if($brand != null)
+            $this->brand = $brand;
 
         parent::__construct();
 
