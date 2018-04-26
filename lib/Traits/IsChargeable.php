@@ -30,7 +30,7 @@ trait IsChargeable{
     public function charge($amount, $request = null){
 
         // If gatewy isn't initlized, then we initilize it.
-        if($this->paymentGateway == null) $this->initGateway($request);
+        if($this->paymentGateway == null) $this->initPaymentGateway($request);
         else $gateway = $this->paymentGateway;
 
         // Set the customer to 'this' being the user or customer
@@ -48,6 +48,8 @@ trait IsChargeable{
     }
 
     /**
+     * 
+     * 
      * @var Request
      * 
      * @return Gateway
@@ -55,7 +57,7 @@ trait IsChargeable{
     public function creditcard($request = null){
 
         // If gatewy isn't initlized, then we initilize it.
-        if($this->paymentGateway == null) $this->initGateway($request);
+        if($this->paymentGateway == null) $this->initPaymentGateway($request);
         else $gateway = $this->paymentGateway;
 
         $this->gatewayResponse = $gateway->creditcard();
@@ -69,14 +71,16 @@ trait IsChargeable{
      * 
      * @return Gateway
      */
-    public function initGateway($request = null){
+    public function initPaymentGateway($request = null){
 
         // Arbirarily pass in the request
         if($request == null)
             $request = request();
 
+        // Get and Set Payment Gateway
         $this->paymentGateway = GatewayProcessor::get($request);
 
+        // Return Gateway object 
         return $this->paymentGateway;
 
     }
