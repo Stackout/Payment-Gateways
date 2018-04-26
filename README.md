@@ -133,6 +133,9 @@ class CheckoutController extends Controller{
 Before charging the customer, we can interrupt the charge and perform some business logic by overriding the interruptCharge() method in the User Model.
 
 ```php
+
+use Stackout\PaymentGateways\Traits\IsChargeable;
+
 class User extends Model{
 
     use IsChargeable;
