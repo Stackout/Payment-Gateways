@@ -204,33 +204,51 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         try{
 
             // Create our stripe charge
-            $this->createCharge();
-    
-            return $this->charge;
+            $this->createCharge();  
 
-        } catch(Stripe_CardError $e) {
-            $errors[] = $e->getMessage();
-        } catch (Stripe_InvalidRequestError $e) {
+            return $this;
+
+        } catch(\Stripe\Error\Card $e) {
+            // Since it's a decline, \Stripe\Error\Card will be caught
+            $this->errors[] = $e->getMessage();
+
+        } catch (\Stripe\Error\RateLimit  $e) {
+
+            // Too many requests made to the API too quickly
+            $this->errors[] = $e->getMessage();
+
+        } catch (\Stripe\Error\InvalidRequest $e) {
+
             // Invalid parameters were supplied to Stripe's API
-            $errors[] = $e->getMessage();
-        } catch (Stripe_AuthenticationError $e) {
+            $this->errors[] = $e->getMessage();
+
+        } catch (\Stripe\Error\Authentication $e) {
+
             // Authentication with Stripe's API failed
-            $errors[] = $e->getMessage();
-        } catch (Stripe_ApiConnectionError $e) {
+            $this->errors[] = $e->getMessage();
+
+        } catch (\Stripe\Error\ApiConnection $e) {
+
             // Network communication with Stripe failed
-            $errors[] = $e->getMessage();
-        } catch (Stripe_Error $e) {
+            $this->errors[] = $e->getMessage();
+
+        } catch (\Stripe\Error\Base $e) {
+
             // Display a very generic error to the user, and maybe send
             // yourself an email
-            $errors[] = $e->getMessage();
+            $this->errors[] = $e->getMessage();
+
         } catch (Exception $e) {
             // Something else happened, completely unrelated to Stripe
-            $errors[] = $e->getMessage();
+            $this->errors[] = $e->getMessage();
+
         }
 
-        return $errors;
+
+        return $this;
 
     }
+
 
     public function retrieveCharge(){
 

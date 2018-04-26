@@ -13,8 +13,8 @@ Route::group([
 ], function (){
 
     
-    Route::get('/', 'GatewayController@index')->name('stackout.gateway.index');
-    Route::post('/', 'GatewayController@postCheckout')->name('stackout.gateway.checkout.post');
+    Route::get('/', 'GatewayController@index')->name('gateway.index');
+    Route::post('/', 'GatewayController@postCheckout')->name('checkout.post');
 
     
     Route::get('/test', 'GatewayController@test')->name('gateway.test');

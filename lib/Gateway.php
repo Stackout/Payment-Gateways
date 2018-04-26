@@ -161,6 +161,25 @@ class Gateway{
      */
     public $interruptible;
 
+     /**
+     * Declare errors
+     *
+     * @var string Default Credit Card
+     */
+    public $errors;
+    /**
+    * Declare errors
+    *
+    * @var string Default Credit Card
+    */
+    public $errorResponseType;
+
+    /**
+    * Declare errors
+    *
+    * @var string Default Credit Card
+    */
+    public $errorHttpStatus;
 
     /**
      *  Allow overloading of constructor if we want to set our own private and public keys
@@ -284,6 +303,43 @@ class Gateway{
 
 
     }
-    
+
+    /**
+     * Validation and Errors
+     * 
+     * @return array
+     */
+    public function errors(){
+
+        return $this->errors;
+
+    }
+
+    /**
+     * Validator
+     * 
+     * @return bool
+     */
+    public function valid(){
+
+        if(count($this->errors) > 0)
+            return false;
+        
+        return true;
+
+    }
+
+    /**
+     * Set response errors
+     * @return void
+     */
+    public function setErrors(\Exception $e){
+
+        $this->errors[] = $e->getMessage();
+        $this->errorHttpStatus = $e->getHttpStatus();
+        $this->errorResponseType = $e->getType();
+
+    }
+
 
 }

@@ -36,9 +36,18 @@ class GatewayController extends Controller
     public function postCheckout(Request $request){        
         
         $user = User::find(1);
-        $user->charge($request, 5000);
 
+
+        $charge = $user->charge($request, 5000);
         
+        if(!$charge->valid()){
+            foreach($charge->errors as $error){
+                echo $error . '<br>';
+            }
+        }
+        
+        // 4000000000000002
+        dd($charge->errors);
 
     }
 
