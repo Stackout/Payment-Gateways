@@ -43,8 +43,11 @@ class GatewayController extends Controller
         if(!$response->valid())
             return redirect()->back()->withErrors($charge->errors);
         
+        $creditcard = $response->creditcard();
+
+        dd($creditcard);
         // Redirect back with a success message. (Or Continue forward )
-        return redirect()->back()->with('success', $response->success);
+        //return redirect()->back()->with('success', $response->success);
 
     }
 

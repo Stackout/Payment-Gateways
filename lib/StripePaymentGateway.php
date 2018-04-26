@@ -267,14 +267,15 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         $creditcard->last4 = $default_card->last4;
         $creditcard->exp_year = $default_card->exp_year;
         $creditcard->exp_month = $default_card->exp_month;
+        $creditcard->id = $default_card->id;
+        $creditcard->country = $default_card->country;
+        $creditcard->funding = $default_card->funding;
+        $creditcard->fingerprint = $default_card->fingerprint;
+        $creditcard->owner = $this->stripeCustomer->id;
 
-        $creditcard->metadata = $default_card->metadata;
+        $creditcard->metadata = $default_card->metadata->__toArray(true);
 
-        $creditcard->address['line1'] = $default_card->line1;
-        $creditcard->address['line2'] = $default_card->line2;
-        $creditcard->address['state'] = $default_card->state;
-        $creditcard->address['city'] = $default_card->city;
-        $creditcard->address['zip'] = $default_card->zip;
+        $creditcard->setAddress($default_card->line1, $default_card->line2, $default_card->city, $default_card->state, $default_card->zip);
         
         $this->creditcard = $creditcard;
 
