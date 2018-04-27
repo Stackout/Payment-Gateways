@@ -194,11 +194,9 @@ class SettingsTable extends Migration
 }
 ?>
 ```
-The HasDefuseableKeys method here.
+The `HasDefuseableKeys` trait here.
 ```php
 <?php
-
-namespace Stackout\PaymentGateways;
 
 use Stackout\PaymentGateways\Traits\HasDefusableKeys;
 
