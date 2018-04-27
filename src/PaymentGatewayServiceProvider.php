@@ -14,6 +14,7 @@ class PaymentGatewaysServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         
         $this->loadRoutesFrom(__DIR__ . './routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . './routes/admin.php');
         $this->loadViewsFrom(__DIR__ . './resources/views', 'sgateway');
 
 

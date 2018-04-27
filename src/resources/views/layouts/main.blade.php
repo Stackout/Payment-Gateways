@@ -9,8 +9,6 @@
 
     <div class="container">
 
-        @include('sgateway::partials.page-headers')
-
         @yield('content')
 
         @include('sgateway::partials.footer')

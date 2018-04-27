@@ -4,6 +4,8 @@
 
 @include('sgateway::inc.messages')
 
+@include('sgateway::partials.checkout-header')
+
 <form method="POST" action="{{ route('checkout.post') }}" id="payment-form">
         @csrf
         <div class="row">
