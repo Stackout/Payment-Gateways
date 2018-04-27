@@ -151,6 +151,85 @@ class User extends Model{
 ```
 Some more examples of interrupting the charge of customer could be creating software installation keys, or createing the customer's download link before charging them.
 
+## Storing Secret Keys in the Database Securly
+If you want to store your public, private, secret and passwords in the database, use the HasDefuseableKeys trait in your controller. 
+
+Currently this trait only supports a KEY and VALUE form of a setting. Here is a sample key-value settings migration file:
+```php
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class SettingsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        /**
+         * Migrations to create gateway settings table.
+         */
+        Schema::create('settings', function (Blueprint $table) {
+            $table->increments('id')->unsigned();
+            $table->string('key')->index();
+            $table->text('value')->nullable();
+        });
+
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('settings');
+    }
+}
+?>
+```
+The HasDefuseableKeys method here.
+```php
+<?php
+
+namespace Stackout\PaymentGateways;
+
+use Stackout\PaymentGateways\Traits\HasDefusableKeys;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Setting extends Model
+{
+
+    use HasDefusableKeys;
+
+    /**
+     * Set fillable proeprty
+     */
+    protected $fillable = ['value'];
+
+    /**
+     * Set dates proeprty
+     */
+    protected $dates = ['created_at', 'updated_at'];
+
+    /**
+     * Set defuseable key identifier
+     */
+    protected $defuseableKeyIdentifier = '_secret';
+
+
+}
+
+?>
+```
+
 ## Admin Panel
 Admin panel inclustion is still under development. Please use with caution. 
 
