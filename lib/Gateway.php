@@ -83,7 +83,7 @@ class Gateway{
      */
     private $privateKey;
 
-      /**
+    /**
      * Every gateway can potentiall contain a private key to talk to the API. These are not stored here.
      *
      * @var string
@@ -118,10 +118,10 @@ class Gateway{
      */
     protected $attributes = array();
 
-     
      /**
-     * This service tells us if we are in production or develpoment
-     *
+     * 
+     * Laravel's request paramter
+     * 
      * @var array
      */
     public $request;
@@ -240,20 +240,6 @@ class Gateway{
         // Set the default gateway by name if it is not already set
         if($this->gatewayName == null)
             $this->gatewayName = Config::get('payment_gateways.default');
-        
-
-        // Store values for the private and publish keys from the config file.
-        if($this->privateKey == null || $this->publicKey == null || !Cache::has('payment_gateway:' . $this->gatewayName . ':publicKey'))
-        {
-
-            // Store the private key as a protected variable.
-            $this->privateKey = \Config::get($this->attributes['config'] . '.private');
-
-            // Store the public key
-            Cache::set('payment_gateway:stripe:publicKey', Config::get(''));
-            $this->publicKey = \Config::get($this->attributes['config'] . '.public');
-            
-        }
 
 
     }
@@ -275,12 +261,6 @@ class Gateway{
      */
     public function __set($key, $value){$this->attributes[$key] = $value;}
 
-    /**
-     * @return attribute
-     */
-    public function getAttribute($key){
-        return $this->attributes[$key];
-    }
 
     /**
      * Set all Attributes
@@ -289,14 +269,30 @@ class Gateway{
      * @return void
      */
     public function setAttributes(array $attributes = []){
-
         foreach($attributes as $key => $value)
-            $this->attributes[$key] = $value;
-        
-
+            $this->attributes[$key] = $value;     
     }
 
-    public function setAttribute($key, $value){$this->attributes[$key] = $value;}
+    /**
+     * Set a single attribute
+     * 
+     * @var String key
+     * @var String value
+     * 
+     * @return void
+     */
+    public function setAttribute($key, $value){
+        $this->attributes[$key] = $value;
+    }
+
+    /**
+     * @var String
+     * 
+     * @return Array
+     */
+    public function getAttribute($key){
+        return $this->attributes[$key];
+    }
 
     public function getPublicKey(){
         return $this->publicKey;
@@ -320,18 +316,13 @@ class Gateway{
 
     }
 
-
     public function setCustomer($customer){
         $this->customer = $customer;
     }
 
-
-    public function checkRequest(){
-        
+    public function checkRequest(){        
         if($this->request == null)
             throw new \Exception('Invalid request.');
-
-
     }
 
     /**
@@ -340,9 +331,7 @@ class Gateway{
      * @return array
      */
     public function errors(){
-
         return $this->errors;
-
     }
 
     /**
@@ -351,12 +340,20 @@ class Gateway{
      * @return bool
      */
     public function valid(){
-
         if(empty($this->errors))
-            return true;
-        
+            return true;        
         return false;
+    }
 
+    /**
+     * Fails Method (opposite of valid)
+     * 
+     * @return bool
+     */
+    public function fails(){
+        if(!empty($this->errors))
+            return false;        
+        return true;
     }
 
     /**
@@ -364,19 +361,19 @@ class Gateway{
      * @return void
      */
     public function setError(\Exception $e){
-
         $this->errors[] = $e->getMessage();
         $this->errorHttpStatus = $e->getHttpStatus();
         $this->errorResponseType = $e->getType();
-
     }
 
-
+    /**
+     *  Default Method for Getting Charge Object
+     */
     public function getCharge(){
-
         return $this->charge;
-
     }
+
+
 
 
 
