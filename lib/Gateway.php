@@ -298,6 +298,10 @@ class Gateway{
         return $this->publicKey;
     }
 
+    public function setPrivateKey($privateKey){
+        $this->privateKey = $privateKey;
+    }
+
     public function getPrivateKey(){
         return $this->privateKey;
     }

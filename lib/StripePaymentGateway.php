@@ -28,7 +28,6 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
     protected $stripeCustomer;
 
 
-
     public function __construct(Request $request = null, array $attributes = [], $publicKey = null, $privateKey = null, $currency = Currency::__default){
 
         // Set the gateway name for this instance
@@ -48,6 +47,24 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         if($request != null && $this->request->has('stripeToken'))
             $this->attributes['stripeToken'] = $request->input('stripeToken');
         
+        $this->setupApplication();
+    }
+
+
+    public function setupApplication(){
+
+        // Store values for the private and publish keys from the config file.
+        if(!Cache::has('payment_gateway:stripe:publicKey') || is_null($this->privateKey) || is_null($this->publicKey))
+        {
+            // Store the private key as a protected variable.
+            $this->setPrivateKey(\Config::get($this->attributes['config'] . '.private'));
+
+            // Store the public key
+            Cache::set('payment_gateway:stripe:publicKey', Config::get($this->attributes['config'] . '.public'));
+            $this->publicKey = \Config::get($this->attributes['config'] . '.public');
+            
+        }
+
         Stripe::SetAPIKey($this->getPrivateKey());
 
     }

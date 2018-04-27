@@ -41,7 +41,8 @@ class GatewayController extends Controller
 
         // Check weather or not the card was declined or not
         if(!$response->valid())
-            return redirect()->back()->withErrors($charge->errors);
+            return redirect()->back()->withErrors($response->errors);
+        
         
         $creditcard = $response->creditcard();
 
