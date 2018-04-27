@@ -2,6 +2,7 @@
 
 namespace Stackout\Objects;
 
+
 abstract class Objects{
 
     const CREDITCARD = 'creditcard';

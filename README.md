@@ -1,6 +1,6 @@
 Please note! This package is a work in progress. I was in dire need of something with respect to a payment processor gateway for scaleability purposes. Please feel free to use and help build the library! 
 
-# Stackout's Payment Gateway Processor
+# Laravel Payment Gateway Processor
 
 This project is meant to provide ease of access to connect to multiple payment gateways. 
 
@@ -14,6 +14,7 @@ What things you need to install the software and how to install them
 
 ```
 Laravel
+Stripe
 ```
 Navigate to your desired project folder, and create a new laravel project.
 ```
@@ -145,7 +146,6 @@ class User extends Model{
         // Perform some business logic before charging the customer.
 
     }
-
 
 }
 ```
