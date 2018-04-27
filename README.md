@@ -151,6 +151,11 @@ class User extends Model{
 ```
 Some more examples of interrupting the charge of customer could be creating software installation keys, or createing the customer's download link before charging them.
 
+## Admin Panel
+Admin panel inclustion is still under development. Please use with caution. 
+[[https://github.com/Stackout/Payment-Gateways/blob/master/documentation/gateway_settings.png]]
+
+
 ## Built With
 
 * [Laravel](https://laravel.com/docs/5.6/) - PHP Web Framework
