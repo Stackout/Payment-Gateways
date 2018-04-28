@@ -14,8 +14,8 @@ Route::group([
 ], function (){
 
     
-    Route::get('/', 'GatewayController@settings')->name('settings.index');
-    Route::post('/', 'GatewayController@postSettings')->name('settings.post');
+    Route::get('/', 'AdminGatewayController@settings')->name('settings.index');
+    Route::post('/', 'AdminGatewayController@postSettings')->name('settings.post');
 
 
 });

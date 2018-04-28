@@ -8,8 +8,8 @@ use Stackout\PaymentGateways\Gateway;
 use Stackout\PaymentGateways\GatewayProcessor;
 use Illuminate\Http\Request;
 
-
 use App\User;
+
 class GatewayController extends Controller
 {
 
@@ -58,46 +58,9 @@ class GatewayController extends Controller
         
         $creditcard = $response->creditcard();
 
-        dd($creditcard);
-
         // Redirect back with a success message. (Or Continue forward )
-        //return redirect()->back()->with('success', $response->success);
+        return redirect()->back()->with('success', $response->success);
 
-    }
-
-    public function settings(){
-
-        return view('sgateway::pages.admin')->with('settings', $this->settings);
-
-    }
-
-    public function postSettings(Request $request){
-
-        $fields = $request->except(['_token', 'save']);
-
-        foreach($fields as $key => $value){
-
-            $setting = ($this->setting_model::where('key', $key))->first();
-
-            // If setting doesn't exist, create it
-            if($setting === null){
-                
-                $setting = new $this->setting_model;
-                $setting->key = $key;
-                $setting->value = ($value ?: '');
-                $setting->save();
-
-            }
-            else
-            {
-                $setting->value = $value;
-                $setting->save();
-            }
-
-        }
-
-        return redirect()->back()->with('success', 'Settings updated.');
-        
     }
 
 }

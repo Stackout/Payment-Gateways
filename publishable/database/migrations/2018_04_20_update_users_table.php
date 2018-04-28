@@ -15,6 +15,7 @@ class UsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('stripe_id');
+            $table->string('stripe_card_id');
             $table->string('paypal_id');
             $table->string('authnet_id');
         });
