@@ -47,7 +47,7 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         if($request != null && $this->request->has('stripeToken'))
             $this->attributes['stripeToken'] = $request->input('stripeToken');
         
-        $this->setupApplication();
+        om$this->setupApplication();
     }
 
 
