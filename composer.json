@@ -5,7 +5,8 @@
     "require": {
         "stripe/stripe-php": "^6.5",
         "authorizenet/authorizenet": "^1.9",
-        "paypal/rest-api-sdk-php": "dev-2.0-beta"
+        "paypal/rest-api-sdk-php": "dev-2.0-beta",
+        "defuse/php-encryption": "^v2.1.0"
     },
     "authors": [
         {
