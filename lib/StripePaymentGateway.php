@@ -421,6 +421,7 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
      */
     public function createSubscription(array $data){
 
+        // Check if customer is availible.
         if($this->customer == null)
             throw new \Exception('Please assign a customer to this subscription.');
          
