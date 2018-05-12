@@ -58,14 +58,14 @@ trait IsStripePlan{
         // If plan wasn't set, create plan by assigning it here.
         if($this->attrbutes['product'] == null || $this->attributes['product'] == ''){
 
-            $data['plan'] = [
+            $data['product'] = [
                 'name' => $this->attributes['plan_title'],
             ];
 
         }else{
 
             // If plan is set and is not an array, we create 
-            $data['plan'] = $this->stripePlan->id;
+            $data['product'] = $this->stripeProduct->id;
 
         }
         
