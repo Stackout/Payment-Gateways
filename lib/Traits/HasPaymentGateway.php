@@ -7,7 +7,7 @@ use Stackout\PaymentGateways\Gateway;
 
 
 
-trait IsChargeable{
+trait HasPaymentGateway{
 
     /**
      * @var Gateway
