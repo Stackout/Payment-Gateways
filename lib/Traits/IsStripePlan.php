@@ -89,5 +89,14 @@ trait IsStripePlan{
     }
 
 
+    public function getPlan(){
+
+
+
+    }
+
+    public function getProduct(){
+        
+    }
  
 }
