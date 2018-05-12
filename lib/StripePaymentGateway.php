@@ -47,7 +47,7 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         if($request != null && $this->request->has('stripeToken'))
             $this->attributes['stripeToken'] = $request->input('stripeToken');
         
-        om$this->setupApplication();
+        $this->setupApplication();
     }
 
 
@@ -304,8 +304,6 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
 
     public function retrieveCharge(){
 
-
-
     }
 
     public function updateCharge(){
@@ -368,10 +366,94 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
 
     }
 
+    /**
+     * This method allows us to interrupt a charage. However, it is not implemented here, so we throw an error
+     * if the user wanted to implmenent it, but didn't d o it.
+     */
     public function interruptCharge(Request $request){
 
         throw new \Exception('Interrupt Charge Method not Implemented');
 
     }
+
+
+    /**
+     * Create a Plan, Product and Subscription
+     */
+
+    public function createProduct(array $data){
+
+        if(!array_key_exists('name', $data))
+            throw new \Exception('A product name is required.');
+        
+        if(!array_key_exists('type', $data))
+            throw new \Exception('A product type is required.');
+
+        $this->response = \Stripe\Product::create($data);
+
+        return $this;
+
+    }
+
+
+    public function createPlan(array $data){
+
+        if(!array_key_exists('name', $data))
+            throw new \Exception('A plan name is required.');
+        
+        if(!array_key_exists('interval', $data))
+            throw new \Exception('A plan requires an interval.');
+
+        if(!array_key_exists('product', $data))
+            throw new \Exception('A product is required to create a plan.');
+
+        if(!array_key_exists('currency', $data))
+            $data['currency'] = $this->attributes['currency'];
+
+        $this->response = \Stripe\Plan::create($data);
+
+        return $this;
+
+    }
+
+    /**
+     * A subscription registers a user to periodic billing.
+     */
+    public function createSubscription(array $data){
+
+        if($this->customer == null)
+            throw new \Exception('Please assign a customer to this subscription.');
+         
+        if(!array_key_exists('items', $data) && !array_key_exists('plan', $data['items']))
+            throw new \Exception('A plan is required in order to subscribe a customer.');
+        
+        if(array_key_exists('source', $data)){
+
+            if(!array_key_exists($data['source'], 'object'))
+                throw new \Exception('A plan is required in order to subscribe a customer.');
+
+            if(!array_key_exists($data['source'], 'number'))
+                throw new \Exception('The card number, as a string, without any separators is required.');
+            
+            if(!array_key_exists($data['source'], 'exp_month'))
+                throw new \Exception('Two-digit number representing the card\'s expiration month. is required.');
+            
+            if(!array_key_exists($data['source'], 'exp_year'))
+                throw new \Exception('Two- or four-digit number representing the card\'s expiration year. is required.');
+                              
+            if(!array_key_exists($data['source'], 'cvc'))
+                throw new \Exception('Card security code is required.');
+            
+            if(!array_key_exists($data['source'], 'currency'))
+                $data['source']['currency'] = $this->attributes['currency'];                
+
+        }
+
+        $this->response = \Stripe\Subscription::create($data);
+
+        return $this;
+
+    }
+
 
 }

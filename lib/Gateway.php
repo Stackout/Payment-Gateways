@@ -210,6 +210,14 @@ class Gateway{
     */
     public $source;
 
+    /**
+    * Obtains the last response from the gateway
+    *
+    * @var string Source Object
+    */
+    public $response;
+
+
 
     /**
      *  Allow overloading of constructor if we want to set our own private and public keys
