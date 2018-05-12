@@ -446,7 +446,7 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
             
             if(!array_key_exists($data['source'], 'currency'))
                 $data['source']['currency'] = $this->attributes['currency'];                
-
+ 
         }
 
         $this->response = \Stripe\Subscription::create($data);
