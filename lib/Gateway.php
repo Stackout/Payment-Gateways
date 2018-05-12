@@ -332,6 +332,8 @@ class Gateway{
         $this->customer = $customer;
     }
 
+    
+
     public function checkRequest(){        
         if($this->request == null)
             throw new \Exception('Invalid request.');
@@ -385,7 +387,10 @@ class Gateway{
         return $this->charge;
     }
 
+    public function getCurrency(){
 
+        return $this->attributes['currency'];
+    }
 
 
 
