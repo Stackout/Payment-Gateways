@@ -398,9 +398,6 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
 
     public function createPlan(array $data){
 
-        if(!array_key_exists('name', $data))
-            throw new \Exception('A plan name is required.');
-        
         if(!array_key_exists('interval', $data))
             throw new \Exception('A plan requires an interval.');
 
