@@ -30,6 +30,9 @@ use \Config;
 use \Cache;
 use Illuminate\Http\Request;
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 /**
  * This is a "Docblock Comment," also known as a "docblock."  The class'
  * docblock, below, contains a complete description of how to write these.
