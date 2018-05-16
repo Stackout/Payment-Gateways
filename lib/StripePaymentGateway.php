@@ -485,7 +485,7 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
 
     }
 
-    
+
     /**
     * Pagiante Response from Stripe
     *
@@ -495,10 +495,10 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
     *
     * @return LengthAwarePaginator
     */
-    public function paginate($perPage = 15, $page = null, $options = [])
+    public function paginate($perPage = 15, $page = null, $options = [], $items = null)
     {
         $items = $this->response->data;
-        return parent::paginate($items, $perPage, $page, $options);
+        return parent::paginate($perPage, $page, $options, $items);
     }
 
 

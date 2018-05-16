@@ -402,8 +402,10 @@ class Gateway{
     *
     * @return LengthAwarePaginator
     */
-    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    public function paginate($perPage = 15, $page = null, $options = [], $items = null)
     {
+        if($items == null)
+            throw new \Exception('Please define an array or a collection to paginate. Items cannot be null.');
         $page = $page ?: (\Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
