@@ -100,7 +100,7 @@ trait IsChargeable{
         // Set the customer to 'this' being the user or customer
         $this->paymentGateway->customer = $this;
 
-        $data['items'] = ['plan' => $plan_id];
+        $data['items'] = [['plan' => $plan_id]];
 
         // Create subscription
         $this->paymentGateway->createSubscription($data);
