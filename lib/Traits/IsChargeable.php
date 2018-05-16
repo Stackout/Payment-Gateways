@@ -95,7 +95,7 @@ trait IsChargeable{
     {
         // If gatewy isn't initlized, then we initilize it.
         if($this->paymentGateway == null)
-            $this->initPaymentGateway($request);
+            $this->initPaymentGateway();
 
         // Set the customer to 'this' being the user or customer
         $this->paymentGateway->customer = $this;
