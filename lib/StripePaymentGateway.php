@@ -459,5 +459,32 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
 
     }
 
+    /**
+     * Retrieve an Invoice by ID
+     */
+    public function retrieveInvoice($invoice_id)
+    {
+
+        
+        $this->response = \Stripe\Invoice::retrieve($invoice_id);
+
+        return $this;
+
+    }
+
+    /**
+     * Retrieve All Invoices
+     * 
+     * @var Array
+     */
+    public function retrieveAllInvoices(array $data = null)
+    {
+
+        $this->response = \Stripe\Invoice::all($data);
+
+        return $this;
+
+    }
+
 
 }
