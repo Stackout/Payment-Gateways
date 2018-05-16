@@ -32,6 +32,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 /**
  * This is a "Docblock Comment," also known as a "docblock."  The class'
