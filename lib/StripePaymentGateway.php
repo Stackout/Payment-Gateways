@@ -465,7 +465,6 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
     public function retrieveInvoice($invoice_id)
     {
 
-        
         $this->response = \Stripe\Invoice::retrieve($invoice_id);
 
         return $this;
@@ -485,6 +484,23 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         return $this;
 
     }
+
+    
+    /**
+    * Pagiante Response from Stripe
+    *
+    * @param int   $perPage
+    * @param int  $page
+    * @param array $options
+    *
+    * @return LengthAwarePaginator
+    */
+    public function paginate($perPage = 15, $page = null, $options = [])
+    {
+        $items = $this->response->data;
+        return parent::paginate($items, $perPage, $page, $options);
+    }
+
 
 
 }
