@@ -93,11 +93,11 @@ trait IsChargeable{
     
     public function subscribe($plan_id)
     {
-        // If the payment gateway is not setup, set it up
+        // If gatewy isn't initlized, then we initilize it.
         if($this->paymentGateway == null)
-            $this->initPaymentGateway();
+            $this->initPaymentGateway($request);
 
-        // Set this customer
+        // Set the customer to 'this' being the user or customer
         $this->paymentGateway->customer = $this;
 
         // Create subscription

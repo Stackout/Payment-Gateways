@@ -421,7 +421,11 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
         // Check if customer is availible.
         if($this->customer == null)
             throw new \Exception('Please assign a customer to this subscription.');
-         
+        
+        // TO DO: Figure out a clever way to get customer's stripe ID stored in this library.
+        // if($this->customer->stripe_id == null || $this->customer->stripe_id == '')
+        // 
+
         if(!array_key_exists('items', $data) && !array_key_exists('plan', $data['items']))
             throw new \Exception('A plan is required in order to subscribe a customer.');
         
@@ -446,6 +450,8 @@ class StripePaymentGateway extends Gateway implements CustomerContract, ChargeCo
                 $data['source']['currency'] = $this->attributes['currency'];                
  
         }
+
+        $data['customer'] = $this->customer->stripe_id;
 
         $this->response = \Stripe\Subscription::create($data);
 
