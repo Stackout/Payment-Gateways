@@ -85,7 +85,27 @@ trait IsChargeable{
 
     }
 
+    /**
+     * @var Request
+     * 
+     * @return Gateway
+     */
     
+    public function subscribe($request = null)
+    {
+        // If the payment gateway is not setup, set it up
+        if($this->paymentGateway == null)
+            $this->initPaymentGateway();
+
+        // Set this customer
+        $this->paymentGateway->customer = $this;
+
+        // Create subscription
+        $this->paymentGateway->createSubscription();
+
+        return $this->paymentGateway;
+
+    }
 
 
 }

@@ -40,7 +40,7 @@ trait IsStripePlan{
         $this->stripeProduct = $gateway->createProduct($data);
 
         // Return this controller or object
-        return $this;
+        return $this->stripeProduct;
 
     }
 
@@ -73,7 +73,7 @@ trait IsStripePlan{
         $this->stripePlan = $gateway->createPlan($data);
         
         // Return this controller or object
-        return $this;
+        return $this->stripePlan;
     }
 
     public function getPaymentGateway(){
