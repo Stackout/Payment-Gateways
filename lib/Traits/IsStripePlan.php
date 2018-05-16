@@ -76,6 +76,9 @@ trait IsStripePlan{
         return $this->stripePlan;
     }
 
+    /**
+     * Get Payment Gateway for User
+     */
     public function getPaymentGateway(){
 
         return $this->getParentPaymentGateway();
