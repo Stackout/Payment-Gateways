@@ -125,7 +125,7 @@ trait IsChargeable{
         $this->paymentGateway->customer = $this;
 
         // Create subscription
-        $this->paymentGateway->createCard($data);
+        $this->paymentGateway->createCard();
 
         return $this->paymentGateway;
 
