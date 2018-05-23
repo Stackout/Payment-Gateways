@@ -18,7 +18,7 @@
  * @category   PaymentProcessing
  * @package    PaymentGateway
  * @author     Original Author <ryan@heimech.com>
- * @copyright  2018 Heimech Studios
+ * @copyright  2018 Dragon Blade Technologies
  * @link       http://github.com/stackout/payment-gateways
  * @since      File available since Release 1.0.0
  */

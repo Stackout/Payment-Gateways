@@ -109,5 +109,26 @@ trait IsChargeable{
 
     }
 
+    /**
+     * @var Request
+     * 
+     * @return Gateway
+     */
+    
+    public function updateCreditCard()
+    {
+        // If gatewy isn't initlized, then we initilize it.
+        if($this->paymentGateway == null)
+            $this->initPaymentGateway();
+
+        // Set the customer to 'this' being the user or customer
+        $this->paymentGateway->customer = $this;
+
+        // Create subscription
+        $this->paymentGateway->createCard($data);
+
+        return $this->paymentGateway;
+
+    }
 
 }
